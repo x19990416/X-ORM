@@ -176,6 +176,7 @@ public class XDBDriver {
 	 * @throws SQLException
 	 */
 	public List<?> executeSQL(String sSQL, Class clazz) throws SQLException {
+		this.openStatement();
 		List list = new ArrayList();
 		try {
 			this.executeSQL(sSQL, 0);
@@ -187,8 +188,10 @@ public class XDBDriver {
 				this.next();
 			}
 		} catch (Exception e) {
+			this.closeStatment();
 			throw new SQLException(e);
 		}
+		this.closeStatment();
 		return list;
 
 	}
